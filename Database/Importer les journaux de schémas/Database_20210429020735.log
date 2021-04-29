@@ -1,0 +1,86 @@
+29/04/2021 16:07:35	Ce journal contient des informations sur l'importation du schéma dans le projet 'Database' sur l'ordinateur 'ARIA-PC' par l'utilisateur 'User'.
+29/04/2021 16:07:36	L'importation du schéma de base de données a commencé.
+29/04/2021 16:07:46	Collecte des informations d'identification à la base de données
+29/04/2021 16:07:46	Collecte des options de la base de données
+29/04/2021 16:07:46	Collecte de l'option de configuration étendue à la base de données générique
+29/04/2021 16:07:46	Collecte des utilisateurs
+29/04/2021 16:07:46	Collecte des rôles
+29/04/2021 16:07:46	Collecte des rôles d'application
+29/04/2021 16:07:46	Collecte des appartenances aux rôles
+29/04/2021 16:07:46	Collecte des groupes de fichiers
+29/04/2021 16:07:46	Collecte des catalogues de recherche en texte intégral
+29/04/2021 16:07:46	Collecte des assemblys
+29/04/2021 16:07:46	Collecte des certificats
+29/04/2021 16:07:46	Collecte des clés asymétriques
+29/04/2021 16:07:46	Collecte des clés symétriques
+29/04/2021 16:07:46	Collecte des clés symétriques chiffrées
+29/04/2021 16:07:46	Collecte des schémas
+29/04/2021 16:07:46	Collecte des collections de schémas XML
+29/04/2021 16:07:46	Collecte des types de données définis par l'utilisateur
+29/04/2021 16:07:46	Collecte des types définis par l'utilisateur
+29/04/2021 16:07:46	Collecte des types de tables
+29/04/2021 16:07:46	Collecte des clés uniques des types de tables
+29/04/2021 16:07:46	Collecte des clés primaires pour les types de tables
+29/04/2021 16:07:46	Collecte d'index pour types de tables
+29/04/2021 16:07:47	Collecte des contraintes de validation pour les types de tables
+29/04/2021 16:07:47	Collecte des contraintes par défaut pour les types de tables
+29/04/2021 16:07:47	Collecte des fonctions de partition
+29/04/2021 16:07:47	Collecte des schémas de partition
+29/04/2021 16:07:47	Collecte des fonctions
+29/04/2021 16:07:47	Collecte de fonctions cryptées
+29/04/2021 16:07:47	Collecte des agrégats
+29/04/2021 16:07:47	Collecte des procédures
+29/04/2021 16:07:47	Collecte de procédures cryptées
+29/04/2021 16:07:47	Collecte des tables
+29/04/2021 16:07:47	Collecte des clés primaires
+29/04/2021 16:07:47	Collecte des contraintes uniques
+29/04/2021 16:07:47	Collecte des clés étrangères
+29/04/2021 16:07:47	Collecte des contraintes par défaut
+29/04/2021 16:07:47	Collecte des contraintes de validation
+29/04/2021 16:07:47	Collecte des vues
+29/04/2021 16:07:47	Collecte de vues cryptées
+29/04/2021 16:07:47	Collecte des index
+29/04/2021 16:07:47	Collecte des statistiques
+29/04/2021 16:07:47	Collecte des listes de mots vides d'index de recherche en texte intégral
+29/04/2021 16:07:47	Collecte des listes de propriétés de recherche
+29/04/2021 16:07:47	Collecte des propriétés de recherche
+29/04/2021 16:07:47	Collecte des index de recherche en texte intégral
+29/04/2021 16:07:47	Collecte des index de la banque de colonnes
+29/04/2021 16:07:47	Collecte des index spatiaux
+29/04/2021 16:07:47	Collecte des index XML
+29/04/2021 16:07:47	Collecte d'index XML sélectifs
+29/04/2021 16:07:47	Collecte de déclencheurs cryptés
+29/04/2021 16:07:47	Collecte des déclencheurs
+29/04/2021 16:07:47	Collecte des déclencheurs chiffrés et DDL CLR
+29/04/2021 16:07:47	Collecte des DDL triggers
+29/04/2021 16:07:47	Création de contraintes d'arête
+29/04/2021 16:07:47	Collecte des synonymes
+29/04/2021 16:07:47	Collecte des valeurs par défaut
+29/04/2021 16:07:47	Collecte des liaisons UDDT de contrainte de données
+29/04/2021 16:07:47	Collecte des règles
+29/04/2021 16:07:47	Collecte des liaisons UDDT de contrainte de données
+29/04/2021 16:07:47	Collecte des types de messages
+29/04/2021 16:07:47	Collecte des files d'attente
+29/04/2021 16:07:47	Collecte des contrats
+29/04/2021 16:07:47	Collecte des services
+29/04/2021 16:07:47	Collecte des notifications d'événements
+29/04/2021 16:07:47	Collecte des liaisons de service distant
+29/04/2021 16:07:47	Collecte des priorités de Service Broker
+29/04/2021 16:07:47	Collecte des signatures
+29/04/2021 16:07:47	Collection des options de compression de données
+29/04/2021 16:07:47	Collecte des types de séquences
+29/04/2021 16:07:47	Collecte des stratégies de sécurité
+29/04/2021 16:07:47	Collecter les clés de chiffrement de colonne
+29/04/2021 16:07:47	Collecte des clés principales de colonne
+29/04/2021 16:07:47	Collecte des sources de données externes
+29/04/2021 16:07:47	Collecte des formats de fichier externes
+29/04/2021 16:07:47	Collecte des tables externes
+29/04/2021 16:07:47	Collection des propriétés étendues
+29/04/2021 16:07:47	Collecte des informations d'identification
+29/04/2021 16:07:47	Collecte des connexions
+29/04/2021 16:07:47	Collecte des audits du serveur
+29/04/2021 16:07:48	Analyse du projet à la recherche des éléments en double
+29/04/2021 16:07:48	Fin du traitement des éléments en double
+29/04/2021 16:07:49	Importation de la base de données terminée.
+29/04/2021 16:07:49	Un résumé de l'opération d'importation a été enregistré à l'emplacement suivant : D:\Users\User\Documents\EPITA\MTI\NET\KiPrendKoi\Database\Importer les journaux de schémas\Database_20210429020735.log.
+29/04/2021 16:07:49	Cliquez sur Terminer pour continuer...
