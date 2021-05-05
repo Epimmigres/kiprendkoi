@@ -25,13 +25,13 @@ namespace WebApplication.DataAccess.EfModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=ARIA-PC;Initial Catalog=kiprendkoi;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Data Source=ARIA-PC;Initial Catalog=kiprendkoi;Trusted_Connection=True;Integrated Security=SSPI;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "French_CI_AS");
+            // modelBuilder.HasAnnotation("Relational:Collation", "French_CI_AS");
 
             modelBuilder.Entity<Category>(entity =>
             {
@@ -54,6 +54,8 @@ namespace WebApplication.DataAccess.EfModels
 
             modelBuilder.Entity<Event>(entity =>
             {
+                entity.ToTable("Events");
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Date)
