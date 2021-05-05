@@ -23,14 +23,9 @@ namespace WebApplication.Controllers
             _eventRepository = eventRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            Event _event2 = new Event();
-            _event2.Id = 0;
-            _event2.Name = "TEST";
-            _event2.Email = "TEST";
-            _event2.EventHash = HashGenerator();
-            _eventRepository.Insert(_event2);
+            await _eventRepository.Get();
             return View();
         }
 
@@ -40,15 +35,12 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Event _event)
+        public async Task<IActionResult> Create(Event _event)
         {
-            Event _event2 = new Event();
-            _event2.Id = 0;
-            _event2.Name = "TEST";
-            _event2.Email = "TEST";
-            _event2.EventHash = HashGenerator();
-            _eventRepository.Insert(_event2);
-            return View();
+            var eventHash = HashGenerator();
+            _event.EventHash = eventHash;
+            await _eventRepository.Insert(_event);
+            return RedirectToAction("Index", eventHash);
         }
 
         public IActionResult Privacy()

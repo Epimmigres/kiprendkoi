@@ -25,7 +25,7 @@ namespace WebApplication.DataAccess.EfModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=ARIA-PC;Initial Catalog=kiprendkoi;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Data Source=ARIA-PC;Initial Catalog=kiprendkoi;Trusted_Connection=True;Integrated Security=SSPI;");
             }
         }
 
@@ -54,6 +54,8 @@ namespace WebApplication.DataAccess.EfModels
 
             modelBuilder.Entity<Event>(entity =>
             {
+                entity.ToTable("Events");
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Date)
