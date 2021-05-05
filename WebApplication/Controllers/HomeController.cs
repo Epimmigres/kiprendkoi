@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication.Dbo;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
@@ -19,6 +20,17 @@ namespace WebApplication.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Event _event)
         {
             return View();
         }

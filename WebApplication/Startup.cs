@@ -51,6 +51,11 @@ namespace WebApplication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                        name: "create-event",
+                        pattern: "/create",
+                        defaults: new { controller = "Home", action = "Create" }
+                    );
             });
         }
     }
