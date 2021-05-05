@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace WebApplication.DataAccess
         where ModelEntity: class, Dbo.IObjectWithId, new()
     {
         private DbSet<DBEntity> _set;
-        private readonly AutoMapper.Mapper _mapper;
+        protected readonly IMapper _mapper;
         protected EfModels.kiprendkoiContext _context;
         protected ILogger _logger;
-        public Repository(EfModels.kiprendkoiContext context, ILogger logger, AutoMapper.Mapper mapper)
+        public Repository(EfModels.kiprendkoiContext context, ILogger logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;

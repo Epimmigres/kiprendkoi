@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +14,7 @@ namespace WebApplication
 {
     public class Startup
     {
+        private string _connectionString;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,7 +25,10 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataAccess.EfModels.kiprendkoiContext>();
+            services.AddAutoMapper(typeof(DataAccess.AutomapperProfiles));
             services.AddControllersWithViews();
+            services.AddTransient<DataAccess.Interfaces.IEventRepository, DataAccess.EventRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

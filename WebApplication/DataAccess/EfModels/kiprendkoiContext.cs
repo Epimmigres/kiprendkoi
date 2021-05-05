@@ -31,7 +31,7 @@ namespace WebApplication.DataAccess.EfModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "French_CI_AS");
+            // modelBuilder.HasAnnotation("Relational:Collation", "French_CI_AS");
 
             modelBuilder.Entity<Category>(entity =>
             {
