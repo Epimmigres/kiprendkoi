@@ -6,6 +6,12 @@
     <title>@ViewData["Title"] - WebApplication</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            margin: 0;
+            
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,10 +32,8 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div style="height: 100%; width: 100%;">
             @RenderBody()
-        </main>
     </div>
 
     <footer class="border-top footer text-muted">
