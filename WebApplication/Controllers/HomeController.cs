@@ -45,7 +45,6 @@ namespace WebApplication.Controllers
 
         public IActionResult Privacy()
         {
-            ViewData["Title"] = "Joseph Huge Dog";
             return View();
         }
 
