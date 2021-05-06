@@ -61,6 +61,12 @@ namespace WebApplication
                         pattern: "/create",
                         defaults: new { controller = "Create", action = "Index" }
                     );
+                endpoints.MapControllerRoute(
+                        name: "event-list",
+                        pattern: "/event/{eventHash}",
+                        defaults: new { controller = "Event", action = "Index" }
+                    );
+
             });
         }
     }
