@@ -27,7 +27,7 @@ namespace WebApplication
         {
             services.AddDbContext<DataAccess.EfModels.kiprendkoiContext>();
             services.AddAutoMapper(typeof(DataAccess.AutomapperProfiles));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<DataAccess.Interfaces.IEventRepository, DataAccess.EventRepository>();
         }
 
