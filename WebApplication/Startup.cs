@@ -27,7 +27,7 @@ namespace WebApplication
         {
             services.AddDbContext<DataAccess.EfModels.kiprendkoiContext>();
             services.AddAutoMapper(typeof(DataAccess.AutomapperProfiles));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<DataAccess.Interfaces.IEventRepository, DataAccess.EventRepository>();
         }
 
@@ -61,6 +61,12 @@ namespace WebApplication
                         pattern: "/create",
                         defaults: new { controller = "Create", action = "Index" }
                     );
+                endpoints.MapControllerRoute(
+                        name: "event-list",
+                        pattern: "/event/{eventHash}",
+                        defaults: new { controller = "Event", action = "Index" }
+                    );
+
             });
         }
     }
