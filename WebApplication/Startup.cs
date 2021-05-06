@@ -59,7 +59,7 @@ namespace WebApplication
                 endpoints.MapControllerRoute(
                         name: "create-event",
                         pattern: "/create",
-                        defaults: new { controller = "Home", action = "Create" }
+                        defaults: new { controller = "Create", action = "Index" }
                     );
             });
         }
