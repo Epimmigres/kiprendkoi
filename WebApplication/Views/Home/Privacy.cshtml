@@ -1,5 +1,62 @@
 ﻿git comm@{
 }
+<style>
+    .category-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .category-container > input {
+            width: auto;
+        }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<h3>Qui apporte quoi ?</h3>
+
+
+<div>
+    Mes categories
+    <div class="alert alert-success category-container">
+        Sucre
+        <div>
+            <button type="button" class="btn btn-light">Edit</button>
+            <button type="button" class="btn btn-light">Delete</button>
+        </div>
+    </div>
+    <div class="alert alert-success category-container">
+        Sale
+        <div>
+            <button type="button" class="btn btn-light">Save</button>
+            <button type="button" class="btn btn-light">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-container">
+    Ajouter une categorie
+    <div class="alert alert-success category-container">
+        <input type="text" class="form-control" placeholder="Nom de la categorie" />
+        <div>
+            <button type="button" class="btn btn-light">Save</button>
+            <button type="button" class="btn btn-light">Delete</button>
+        </div>
+    </div>
+</div>
+
+<button onclick="appendCategoryForm()">+</button>
+
+<script>
+    function appendCategoryForm() {
+        document.getElementById("add-container").insertAdjacentHTML("beforeend", `
+        <div class="alert alert-success category-container">
+            <input type="text" class="form-control" placeholder="Nom de la categorie" />
+            <div>
+                <button type="button" class="btn btn-light">Save</button>
+                <button type="button" class="btn btn-light">Delete</button>
+            </div>
+        </div>`)
+    }
+</script>
