@@ -31,7 +31,7 @@ namespace WebApplication.Controllers
             var eventHash = HashGenerator();
             _event.EventHash = eventHash;
             await _eventRepository.Insert(_event);
-            return RedirectToAction("Index", eventHash);
+            return RedirectToRoute($"/event/{eventHash}");
         }
 
         private string HashGenerator()

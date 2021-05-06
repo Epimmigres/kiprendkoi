@@ -25,7 +25,7 @@ namespace WebApplication.DataAccess.EfModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=PC-ANYBOWDY;Initial Catalog=Database;Trusted_Connection=True;Integrated Security=SSPI;");
+                optionsBuilder.UseSqlServer("Data Source=ARIA-PC;Initial Catalog=kiprendkoi;Trusted_Connection=True;Integrated Security=SSPI;");
             }
         }
 
