@@ -112,13 +112,13 @@ namespace WebApplication.DataAccess.EfModels
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("what")
-                    .IsFixedLength(true);
+                    .IsFixedLength(false);
 
                 entity.Property(e => e.Who)
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("who")
-                    .IsFixedLength(true);
+                    .IsFixedLength(false);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Items)

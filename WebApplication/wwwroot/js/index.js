@@ -11,6 +11,7 @@
                 'Content-Type': 'application/json'
             }
         };
+        // TODO; Catch error and alert user
         fetch("/api/CategoryAPI", options)
             .then(res => res.json())
             .then(res => {
@@ -36,7 +37,7 @@
     }
 
     function deleteCategory(buttonNode, categoryId) {
-        // TODO: Take the id as a parameter and call the API
+        // TODO: Catch error and alert user
         fetch(`/api/CategoryAPI/${categoryId}`, {
             method: "DELETE"
         })
@@ -73,8 +74,6 @@
     }
 
     function saveCategory(buttonNode, category) {
-        // TODO: Take the id as a parameter and call the API
-
         const buttonList = buttonNode.parentNode.children;
 
         buttonList[0].style = "display: inline";
@@ -93,6 +92,7 @@
                 'Content-Type': 'application/json'
             }
         };
+        // TODO: Catch Error and Alert User
         fetch(`/api/CategoryAPI/${categoryObject.id}`, options)
             .then(() => {
                 buttonNode.parentNode.parentNode.children[0].remove();
@@ -112,32 +112,40 @@
         // TODO: Take the id as a parameter and call the API
         const who = buttonNode.parentNode.parentNode.children[0].children[0].children[0].innerHTML;
         const what = buttonNode.parentNode.parentNode.children[0].children[1].children[0].innerHTML;
+        const quantity = buttonNode.parentNode.parentNode.children[0].children[2].children[0].innerHTML;
 
         buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
             <div class="alert alert-light item-container">
                 <div style="display: flex">
                     <input id="qui" type="text" class="form-control" placeholder="${who}" />
                     <input id="quoi" type="text" class="form-control" placeholder="${what}" />
-                    <input id="combien" type="number" class="form-control" placeholder="Combien" />
+                    <input id="combien" type="number" class="form-control" value="${quantity}" />
                 </div>
                 <div>
                     <button type="button" class="btn btn-light" onclick="saveNewItem(this)">Sauvegarder</button>
-                    <button type="button" class="btn btn-light" onclick="deleteNewItem(this)">Annuler</button>
+                    <button type="button" class="btn btn-light" onclick="cancelEditItem(this)">Annuler</button>
                 </div>
             </div>
         `);
 
-        buttonNode.parentNode.parentNode.remove();
+        buttonNode.parentNode.parentNode.style = "display: none;";
 
         document.getElementById("qui").value = who;
         document.getElementById("quoi").value = what ;
+}
+
+    function cancelEditItem(buttonNode) {
+        console.log(buttonNode.parentNode.parentNode.nextElementSibling);
+        const nextNode = buttonNode.parentNode.parentNode.nextElementSibling
+        buttonNode.parentNode.parentNode.remove();
+        nextNode.style = "display: flex;";
     }
 
     function deleteNewItem(buttonNode) {
         buttonNode.parentNode.parentNode.remove();
     }
 
-    function appendNewItem(buttonNode) {
+    function appendNewItem(buttonNode, categoryId) {
         // TODO: Remove button Node
 
         buttonNode.insertAdjacentHTML('beforebegin', `
@@ -148,22 +156,35 @@
                     <input id="categoryInput" type="number" class="form-control" placeholder="Combien" />
                 </div>
                 <div>
-                    <button type="button" class="btn btn-light" onclick="saveNewItem(this)">Sauvegarder</button>
+                    <button type="button" class="btn btn-light" onclick="saveNewItem(this, ${categoryId})">Sauvegarder</button>
                     <button type="button" class="btn btn-light" onclick="deleteNewItem(this)">Annuler</button>
                 </div>
             </div>
         `);
     }
 
-    function saveNewItem(buttonNode) {
+    function saveNewItem(buttonNode, categoryId) {
         // TODO: Take the id as a parameter and call the API
         // TODO: Show again the add item button
         // TODO: Handle the number of item
 
         const quiInputValue = buttonNode.parentNode.parentNode.children[0].children[0].value;
         const quoiInputValue = buttonNode.parentNode.parentNode.children[0].children[1].value;
-        
-        buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
+        const quantityInputValue = buttonNode.parentNode.parentNode.children[0].children[2].value;
+
+        const itemObject = { "who": quiInputValue, "what": quoiInputValue, "quantity": quantityInputValue, "categoryId": categoryId };
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(itemObject),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        fetch("/api/ItemAPI/", options)
+            .then(res => res.json())
+            .then(res => {
+                buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
                     <div class="alert alert-light item-container">
                         <div>
                             <div>
@@ -172,6 +193,9 @@
                             <div>
                                 Quoi: <span>${quoiInputValue}</span>
                             </div>
+                            <div>
+                                Quantité: <span>${quantityInputValue}</span>
+                            </div>
                         </div>
                         <div>
                             <button type="button" class="btn btn-light" onclick="editItem(this)">Edit</button>
@@ -179,7 +203,7 @@
                         </div>
 
                     </div>
-        `);
-
-        buttonNode.parentNode.parentNode.remove();
+                `);
+                buttonNode.parentNode.parentNode.remove();
+            })
     }
