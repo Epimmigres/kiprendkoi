@@ -12,10 +12,8 @@ namespace WebApplication.DataAccess
 {
     public class EventRepository : Repository<DataAccess.EfModels.Event, Dbo.Event>,IEventRepository
     {
-        public kiprendkoiContext _context;
         public EventRepository(kiprendkoiContext context, ILogger<EventRepository> logger, IMapper mapper) : base(context, logger, mapper)
         {
-            _context = context;
         }
 
         public EventResponseModel GetEventByHash(string hash)
