@@ -34,6 +34,7 @@
             <div class="items-container">
                 @foreach (var item in category.items)
                 {
+                    var itemObject = Json.Serialize(item);
                     <div class="alert alert-light item-container">
                         <div>
                             <div>
@@ -47,7 +48,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-light" onclick="editItem(this)">Edit</button>
+                            <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Edit</button>
                             <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Delete</button>
                         </div>
 

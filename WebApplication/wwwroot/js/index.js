@@ -109,10 +109,9 @@
             method: "DELETE"
         })
             .then(() => buttonNode.parentNode.parentNode.remove())
-        
     }
 
-    function editItem(buttonNode) {
+    function editItem(buttonNode, item) {
         // TODO: Take the id as a parameter and call the API
         const who = buttonNode.parentNode.parentNode.children[0].children[0].children[0].innerHTML;
         const what = buttonNode.parentNode.parentNode.children[0].children[1].children[0].innerHTML;
@@ -121,12 +120,12 @@
         buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
             <div class="alert alert-light item-container">
                 <div style="display: flex">
-                    <input id="qui" type="text" class="form-control" placeholder="${who}" />
-                    <input id="quoi" type="text" class="form-control" placeholder="${what}" />
-                    <input id="combien" type="number" class="form-control" value="${quantity}" />
+                    <input type="text" class="form-control" value="${who}" placeholder="Qui"/>
+                    <input type="text" class="form-control" value="${what}" placeholder="Quoi"/>
+                    <input id="combien" type="number" class="form-control" value="${quantity}" placeholder="Combien" />
                 </div>
                 <div>
-                    <button type="button" class="btn btn-light" onclick="saveNewItem(this)">Sauvegarder</button>
+                    <button type="button" class="btn btn-light" onclick='saveEditItem(this, ${JSON.stringify(item)})'>Sauvegarder</button>
                     <button type="button" class="btn btn-light" onclick="cancelEditItem(this)">Annuler</button>
                 </div>
             </div>
@@ -134,12 +133,56 @@
 
         buttonNode.parentNode.parentNode.style = "display: none;";
 
-        document.getElementById("qui").value = who;
-        document.getElementById("quoi").value = what ;
 }
 
+    function saveEditItem(buttonNode, item) {
+        const quiInputValue = buttonNode.parentNode.parentNode.children[0].children[0].value;
+        const quoiInputValue = buttonNode.parentNode.parentNode.children[0].children[1].value;
+        const quantityInputValue = buttonNode.parentNode.parentNode.children[0].children[2].value;
+
+        const itemObject = (typeof item == 'string') ? JSON.parse(item) : item;
+
+        itemObject.who = quiInputValue;
+        itemObject.what = quoiInputValue;
+        itemObject.quantity = quantityInputValue;
+
+        const options = {
+            method: 'PATCH',
+            body: JSON.stringify(itemObject),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        fetch(`/api/ItemAPI/${itemObject.id}`, options)
+            .then(res => res.json())
+            .then(res => {
+                buttonNode.parentNode.parentNode.nextElementSibling.remove();
+                buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
+                    <div class="alert alert-light item-container">
+                        <div>
+                            <div>
+                                Qui: <span>${quiInputValue}</span>
+                            </div>
+                            <div>
+                                Quoi: <span>${quoiInputValue}</span>
+                            </div>
+                            <div>
+                                Quantité: <span>${quantityInputValue}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Edit</button>
+                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Delete</button>
+                        </div>
+
+                    </div>
+                `);
+                buttonNode.parentNode.parentNode.remove();
+            })
+    }
+
     function cancelEditItem(buttonNode) {
-        console.log(buttonNode.parentNode.parentNode.nextElementSibling);
         const nextNode = buttonNode.parentNode.parentNode.nextElementSibling
         buttonNode.parentNode.parentNode.remove();
         nextNode.style = "display: flex;";
@@ -202,7 +245,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-light" onclick="editItem(this)">Edit</button>
+                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Edit</button>
                             <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Delete</button>
                         </div>
 
