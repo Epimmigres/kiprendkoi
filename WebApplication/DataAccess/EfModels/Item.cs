@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -13,6 +14,7 @@ namespace WebApplication.DataAccess.EfModels
         public int Quantity { get; set; }
         public long CategoryId { get; set; }
 
+        [JsonIgnore]
         public virtual Category Category { get; set; }
     }
 }
