@@ -11,22 +11,27 @@
                 'Content-Type': 'application/json'
             }
         };
-        document.getElementById("categoryInput").value = "";
-        document.querySelector(".categories-container").innerHTML += `
-            <div>
-                <div class="alert alert-primary category-container">
-                    <h3>${name}</h3>
-                    <div>
-                        <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                        <button type="button" class="btn btn-light" onclick="deleteCategory(this)">Delete</button>
-                        <button type="button" class="btn btn-light" onclick="saveCategory(this)" style="display: none">Sauvegarder</button>
-                        <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
+        fetch("/api/CategoryAPI", options)
+            .then(res => res.json())
+            .then(res => {
+                document.getElementById("categoryInput").value = "";
+                document.querySelector(".categories-container").innerHTML += `
+                <div>
+                    <div class="alert alert-primary category-container">
+                        <h3>${name}</h3>
+                        <div>
+                            <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
+                            <button type="button" class="btn btn-light" onclick="deleteCategory(this)">Delete</button>
+                            <button type="button" class="btn btn-light" onclick="saveCategory(this)" style="display: none">Sauvegarder</button>
+                            <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
+                        </div>
                     </div>
-                </div>
-                <div class="items-container">
-                    <button type="button" class="btn btn-primary" onclick="appendNewItem(this)">+</button>
-                </div>
-            </div>`
+                    <div class="items-container">
+                        <button type="button" class="btn btn-primary" onclick="appendNewItem(this)">+</button>
+                    </div>
+                </div>`
+            })
+        
     }
 
     function deleteCategory(buttonNode) {
