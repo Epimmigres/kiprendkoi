@@ -26,8 +26,7 @@
         buttonNode.parentNode.parentNode.parentNode.remove();
     }
 
-    function editCategory(buttonNode, test) {
-        console.log(test);
+    function editCategory(buttonNode) {
         const buttonList = buttonNode.parentNode.children;
 
         buttonList[0].style = "display: none";
@@ -80,7 +79,27 @@
 
     function editItem(buttonNode) {
         // TODO: Take the id as a parameter and call the API
+        const who = buttonNode.parentNode.parentNode.children[0].children[0].children[0].innerHTML;
+        const what = buttonNode.parentNode.parentNode.children[0].children[1].children[0].innerHTML;
 
+        buttonNode.parentNode.parentNode.insertAdjacentHTML('beforebegin', `
+            <div class="alert alert-light item-container">
+                <div style="display: flex">
+                    <input id="qui" type="text" class="form-control" placeholder="${who}" />
+                    <input id="quoi" type="text" class="form-control" placeholder="${what}" />
+                    <input id="combien" type="number" class="form-control" placeholder="Combien" />
+                </div>
+                <div>
+                    <button type="button" class="btn btn-light" onclick="saveNewItem(this)">Sauvegarder</button>
+                    <button type="button" class="btn btn-light" onclick="deleteNewItem(this)">Annuler</button>
+                </div>
+            </div>
+        `);
+
+        buttonNode.parentNode.parentNode.remove();
+
+        document.getElementById("qui").value = who;
+        document.getElementById("quoi").value = what ;
     }
 
     function deleteNewItem(buttonNode) {
@@ -124,7 +143,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-light">Edit</button>
+                            <button type="button" class="btn btn-light" onclick="editItem(this)">Edit</button>
                             <button type="button" class="btn btn-light" onclick="deleteItem(this)">Delete</button>
                         </div>
 
