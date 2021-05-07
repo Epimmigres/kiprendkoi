@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebApplication.DataAccess.EfModels;
 
@@ -29,6 +30,7 @@ namespace WebApplication.Models
     {
         public long Id { get; set; }
         public string name { get; set; }
+        [JsonIgnore]
         public IEnumerable<Item> items { get; set; }
 
         public CategoryResponseModel(long id, string name, List<Item> items)

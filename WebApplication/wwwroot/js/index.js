@@ -14,6 +14,7 @@
         fetch("/api/CategoryAPI", options)
             .then(res => res.json())
             .then(res => {
+                const test = JSON.stringify(res);
                 document.getElementById("categoryInput").value = "";
                 document.querySelector(".categories-container").innerHTML += `
                 <div>
@@ -22,7 +23,7 @@
                         <div>
                             <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
                             <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.Id})">Delete</button>
-                            <button type="button" class="btn btn-light" onclick="saveCategory(this)" style="display: none">Sauvegarder</button>
+                            <button type="button" class="btn btn-light" onclick='saveCategory(this, ${test})' style="display: none">Sauvegarder</button>
                             <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                         </div>
                     </div>
@@ -71,7 +72,7 @@
         buttonNode.parentNode.parentNode.children[0].style = "display: block";
     }
 
-    function saveCategory(buttonNode) {
+    function saveCategory(buttonNode, category) {
         // TODO: Take the id as a parameter and call the API
 
         const buttonList = buttonNode.parentNode.children;
@@ -81,11 +82,25 @@
         buttonList[2].style = "display: none";
         buttonList[3].style = "display: none";
 
-        const inputValue = buttonNode.parentNode.parentNode.children[0].value;
-        buttonNode.parentNode.parentNode.children[0].remove();
-        buttonNode.parentNode.parentNode.children[0].style = "display: block";
+        const categoryObject = (typeof category == 'string') ? JSON.parse(category) : category;
 
-        buttonNode.parentNode.parentNode.children[0].innerHTML = inputValue;
+        const inputValue = buttonNode.parentNode.parentNode.children[0].value;
+        categoryObject.name = inputValue;
+        const options = {
+            method: 'PATCH',
+            body: JSON.stringify(categoryObject),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        fetch(`/api/CategoryAPI/${categoryObject.id}`, options)
+            .then(() => {
+                buttonNode.parentNode.parentNode.children[0].remove();
+                buttonNode.parentNode.parentNode.children[0].style = "display: block";
+
+                buttonNode.parentNode.parentNode.children[0].innerHTML = inputValue;
+            })
+        
     }
 
     function deleteItem(buttonNode) {
