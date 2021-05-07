@@ -21,7 +21,7 @@
                         <h3>${name}</h3>
                         <div>
                             <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteCategory(this)">Delete</button>
+                            <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.Id})">Delete</button>
                             <button type="button" class="btn btn-light" onclick="saveCategory(this)" style="display: none">Sauvegarder</button>
                             <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                         </div>
@@ -34,9 +34,12 @@
         
     }
 
-    function deleteCategory(buttonNode) {
+    function deleteCategory(buttonNode, categoryId) {
         // TODO: Take the id as a parameter and call the API
-        buttonNode.parentNode.parentNode.parentNode.remove();
+        fetch(`/api/CategoryAPI/${categoryId}`, {
+            method: "DELETE"
+        })
+            .then(() => buttonNode.parentNode.parentNode.parentNode.remove());
     }
 
     function editCategory(buttonNode) {

@@ -25,7 +25,7 @@
                     <h3>@category.name</h3>
                     <div>
                         <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                        <button type="button" class="btn btn-light" onclick="deleteCategory(this)">Delete</button>
+                        <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Delete</button>
                         <button type="button" class="btn btn-light" onclick="saveCategory(this)" style="display: none">Sauvegarder</button>
                         <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                     </div>
