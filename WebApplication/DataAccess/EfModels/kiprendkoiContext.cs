@@ -1,11 +1,19 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 #nullable disable
 
 namespace WebApplication.DataAccess.EfModels
 {
+    public class Credentials
+    {
+        public string username;
+        public string password;
+    }
     public partial class kiprendkoiContext : DbContext
     {
         public kiprendkoiContext()
@@ -25,7 +33,11 @@ namespace WebApplication.DataAccess.EfModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=PC-ANYBOWDY;Initial Catalog=Database;Trusted_Connection=True;Integrated Security=SSPI;");
+                string jsonCreds = File.ReadAllText("./creds.json");
+                Credentials creds = JsonConvert.DeserializeObject<Credentials>(jsonCreds);
+
+                optionsBuilder.UseSqlServer("Server=tcp:kiprendquoiserver.database.windows.net,1433;Initial Catalog=kiprendquoi;Persist Security Info=False;User ID=" + creds.username +
+                                            ";Password=" + creds.password + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
