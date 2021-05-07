@@ -103,9 +103,13 @@
         
     }
 
-    function deleteItem(buttonNode) {
-        // TODO: Take the id as a parameter and call the API
-        buttonNode.parentNode.parentNode.remove();
+    function deleteItem(buttonNode, itemId) {
+        // TODO: Catch Fetch Error
+        fetch(`/api/ItemAPI/${itemId}`, {
+            method: "DELETE"
+        })
+            .then(() => buttonNode.parentNode.parentNode.remove())
+        
     }
 
     function editItem(buttonNode) {
@@ -199,7 +203,7 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-light" onclick="editItem(this)">Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteItem(this)">Delete</button>
+                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Delete</button>
                         </div>
 
                     </div>
