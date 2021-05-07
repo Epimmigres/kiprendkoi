@@ -1,8 +1,16 @@
-﻿    function appendNewCategory() {
+﻿    function appendNewCategory(eventId) {
         // TODO: Save button ?
         const name = document.getElementById("categoryInput").value;
         if (name.length == 0)
-            return ;
+            return;
+        const category = { name: name, eventId: eventId };
+        const options = {
+            method: "POST",
+            body: JSON.stringify(category),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
         document.getElementById("categoryInput").value = "";
         document.querySelector(".categories-container").innerHTML += `
             <div>
