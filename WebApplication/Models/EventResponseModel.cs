@@ -18,20 +18,22 @@ namespace WebApplication.Models
             this.eventHash = eventHash;
             this.categories = new List<CategoryResponseModel>();
         }
-        public void AddCategory(string name, List<Item> items)
+        public void AddCategory(long id, string name, List<Item> items)
         {
-            var category = new CategoryResponseModel(name, items);
+            var category = new CategoryResponseModel(id, name, items);
             categories.Add(category);
         }
     }
 
     public class CategoryResponseModel
     {
+        public long Id { get; set; }
         public string name { get; set; }
         public IEnumerable<Item> items { get; set; }
 
-        public CategoryResponseModel(string name, List<Item> items)
+        public CategoryResponseModel(long id, string name, List<Item> items)
         {
+            Id = id;
             this.name = name;
             this.items = items;
         }

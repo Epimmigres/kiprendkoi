@@ -27,7 +27,7 @@ namespace WebApplication.DataAccess
             foreach (var category in categories)
             {
                 var itemList = _context.Items.Where(items => items.CategoryId == category.Id).ToList();
-                response.AddCategory(category.Name, itemList);
+                response.AddCategory(category.Id, category.Name, itemList);
             }
 
             return response;
