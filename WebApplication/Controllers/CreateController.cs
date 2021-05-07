@@ -35,7 +35,7 @@ namespace WebApplication.Controllers
             await _eventRepository.Insert(_event);
             SendEmail(_event);
 
-            return RedirectToAction("Index", eventHash);
+            return RedirectToAction("Index", "Event", new {eventHash = eventHash});
         }
 
         private string HashGenerator()

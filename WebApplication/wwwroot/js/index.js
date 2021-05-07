@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="items-container">
-                        <button type="button" class="btn btn-primary" onclick="appendNewItem(this)">+</button>
+                        <button type="button" class="btn btn-primary" onclick="appendNewItem(this, ${res.id})">+</button>
                     </div>
                 </div>`
             })
