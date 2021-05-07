@@ -22,7 +22,7 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> Index(string eventHash)
         {
             var model = _eventRepository.GetEventByHash(eventHash);
-            return View(model: model);
+            return View(model);
         }
     }
 }

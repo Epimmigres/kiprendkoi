@@ -10,17 +10,18 @@ namespace WebApplication.Models
     {
         public long Id { get; set; }
         public string eventHash { get; set; }
-        public IEnumerable<CategoryResponseModel> categories { get; set; }
+        public List<CategoryResponseModel> categories { get; set; }
 
         public EventResponseModel(long Id, string eventHash)
         {
             this.Id = Id;
             this.eventHash = eventHash;
+            this.categories = new List<CategoryResponseModel>();
         }
         public void AddCategory(string name, List<Item> items)
         {
             var category = new CategoryResponseModel(name, items);
-            categories.Append(category);
+            categories.Add(category);
         }
     }
 
