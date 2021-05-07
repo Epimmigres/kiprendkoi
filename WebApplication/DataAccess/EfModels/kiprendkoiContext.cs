@@ -60,7 +60,7 @@ namespace WebApplication.DataAccess.EfModels
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Categories_Events");
             });
 
@@ -122,8 +122,8 @@ namespace WebApplication.DataAccess.EfModels
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Items)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Items_Categories");
             });
 

@@ -10,6 +10,10 @@ namespace WebApplication.Models
     public class EventResponseModel
     {
         public long Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime? Date { get; set; }
+        public string Location { get; set; }
         public string eventHash { get; set; }
         public List<CategoryResponseModel> categories { get; set; }
 
