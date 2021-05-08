@@ -18,18 +18,18 @@ function showEventModal(model) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modifier l'evenement</h5>
+                        <h5 class="modal-title">Modifier l'évènement</h5>
                         <button type="button" class="btn-close" onclick='removeModal()'></button>
                     </div>
                     <div class="modal-body">
                         <label>Nom</label>
-                        <input id="eventNameInput" type="text" class="form-control" placeholder="Nom de l'evenement" value="${eventName}"/>
+                        <input id="eventNameInput" type="text" class="form-control" placeholder="Nom de l'évènement" value="${eventName}"/>
                         <label>Date</label>
-                        <input id="eventDateInput" type="datetime-local" class="form-control" placeholder="Date de l'evenement" value=${eventDate} />
-                        <label>Localisation</label>
-                        <input id="eventLocalisationInput" type="text" class="form-control" placeholder="Localisation de l'evenement" value="${eventLocation}"/>
+                        <input id="eventDateInput" type="datetime-local" class="form-control" placeholder="Date de l'évènement" value=${eventDate} />
+                        <label>Lieu</label>
+                        <input id="eventLocalisationInput" type="text" class="form-control" placeholder="Localisation de l'évènement" value="${eventLocation}"/>
                         <label>Description</label>
-                        <textarea id="eventDescriptionInput" rows="3" class="form-control" placeholder="Description de l'evenement">${eventDescription}</textarea>
+                        <textarea id="eventDescriptionInput" rows="3" class="form-control" placeholder="Description de l'évènement">${eventDescription}</textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick='removeModal()'>Fermer</button>

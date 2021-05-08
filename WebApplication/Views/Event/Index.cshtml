@@ -13,10 +13,10 @@
             alert("Lien copié !" + res);
         }
     </script>
-    <div class="header-container">
+    <div style="width: 100%; display: flex; justify-content: space-between;">
         <h3 id="eventName">@Model.Name</h3>
         <div>
-            <button type="button" class="btn btn-primary" onclick='showEventModal(JSON.stringify(@modelObject))'>Éditer l'evenement</button>
+            <button type="button" class="btn btn-primary" onclick='showEventModal(JSON.stringify(@modelObject))'>Éditer l'évènement</button>
             <button class="btn btn-success" onclick="copyToClipboard('@Model.eventHash')">Copier le lien</button>
         </div>
 
