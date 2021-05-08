@@ -1,7 +1,93 @@
-﻿@*
-*@
+﻿@using WebApplication.Models
+@model WebApplication.Models.EventResponseModel
 @{
-  
+    var modelObject = Json.Serialize(@Model);
 }
 
-<div>Hello</div>
+
+<div class="main-container">
+    <script>
+        function copyToClipboard(hash) {
+            var eventURL = "https://kiprendkoi.azurewebsites.net/event/" + hash;
+            navigator.clipboard.writeText(eventURL);
+            alert("Lien copié !" + res);
+        }
+    </script>
+    <div class="header-container">
+        <h3 id="eventName">@Model.Name</h3>
+        <div>
+            <button type="button" class="btn btn-primary" onclick='showEventModal(JSON.stringify(@modelObject))'>Éditer l'evenement</button>
+            <button class="btn btn-success" onclick="copyToClipboard('@Model.eventHash')">Copier le lien</button>
+        </div>
+
+    </div>
+    <p id="eventDate">
+        📅: <span>@Model.Date</span>
+    </p>
+    <p id="eventLocation">
+        📍: <span>@Model.Location</span>
+    </p>
+    <p id="eventDescription">
+        📃: <span>@Model.Description</span>
+    </p>
+
+    <div id="add-container">
+        <div style="display: flex; justify-content: space-between; padding-bottom: 20px;">
+            Ajouter une catégorie
+        </div>
+
+
+        <div class="alert alert-primary category-container">
+            <input id="categoryInput" type="text" class="form-control" placeholder="Nom de la catégorie" />
+            <div>
+                <button type="button" class="btn btn-light" onclick="appendNewCategory(@Model.Id)">Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories-container">
+        @foreach (var category in Model.categories)
+        {
+            var categoryObject = Json.Serialize(category);
+            <div>
+                <div class="alert alert-primary category-container">
+                    <h3>@category.name</h3>
+                    <div>
+                        <button type="button" class="btn btn-light" onclick="editCategory(this)">Editer</button>
+                        <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Supprimer</button>
+                        <button type="button" class="btn btn-light" onclick='saveCategory(this, JSON.stringify({ ...@categoryObject, "eventId": @Model.Id}))' style="display: none">Sauvegarder</button>
+                        <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
+                    </div>
+                </div>
+                <div class="items-container">
+                    @foreach (var item in category.items)
+                    {
+                        var itemObject = Json.Serialize(item);
+                        <div class="alert alert-light item-container">
+                            <div>
+                                <div>
+                                    Qui: <span>@item.Who</span>
+                                </div>
+                                <div>
+                                    Quoi: <span>@item.What</span>
+                                </div>
+                                <div>
+                                    Quantité: <span>@item.Quantity</span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Editer</button>
+                                <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Supprimer</button>
+                            </div>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-primary" onclick="appendNewItem(this, @category.Id)">+</button>
+                </div>
+
+
+            </div>
+
+        }
+    </div>
+</div>
+

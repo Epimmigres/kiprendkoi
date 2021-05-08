@@ -27,8 +27,11 @@ namespace WebApplication
         {
             services.AddDbContext<DataAccess.EfModels.kiprendkoiContext>();
             services.AddAutoMapper(typeof(DataAccess.AutomapperProfiles));
+            services.AddControllers();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<DataAccess.Interfaces.IEventRepository, DataAccess.EventRepository>();
+            services.AddTransient<DataAccess.Interfaces.ICategoryRepository, DataAccess.CategoryRepository>();
+            services.AddTransient<DataAccess.Interfaces.IItemRepository, DataAccess.ItemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

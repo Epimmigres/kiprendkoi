@@ -1,11 +1,19 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 #nullable disable
 
 namespace WebApplication.DataAccess.EfModels
 {
+    public class Credentials
+    {
+        public string username;
+        public string password;
+    }
     public partial class kiprendkoiContext : DbContext
     {
         public kiprendkoiContext()
@@ -25,7 +33,11 @@ namespace WebApplication.DataAccess.EfModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=PC-ANYBOWDY;Initial Catalog=Database;Trusted_Connection=True;Integrated Security=SSPI;");
+                string jsonCreds = File.ReadAllText("./creds.json");
+                Credentials creds = JsonConvert.DeserializeObject<Credentials>(jsonCreds);
+
+                optionsBuilder.UseSqlServer("Server=tcp:kiprendquoiserver.database.windows.net,1433;Initial Catalog=kiprendquoi;Persist Security Info=False;User ID=" + creds.username +
+                                            ";Password=" + creds.password + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -48,7 +60,7 @@ namespace WebApplication.DataAccess.EfModels
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Categories_Events");
             });
 
@@ -100,18 +112,18 @@ namespace WebApplication.DataAccess.EfModels
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("what")
-                    .IsFixedLength(true);
+                    .IsFixedLength(false);
 
                 entity.Property(e => e.Who)
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("who")
-                    .IsFixedLength(true);
+                    .IsFixedLength(false);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Items)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Items_Categories");
             });
 

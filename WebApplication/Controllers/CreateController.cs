@@ -32,10 +32,24 @@ namespace WebApplication.Controllers
         {
             var eventHash = HashGenerator();
             _event.EventHash = eventHash;
-            await _eventRepository.Insert(_event);
-            SendEmail(_event);
+            if (_event.Email == null || _event.Name == null)
+            {
+                if (_event.Email == null) TempData["EmailError"] = "Ce champ est obligatoire";
+                if (_event.Name == null) TempData["NameError"] = "Ce champ est obligatoire";
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                await _eventRepository.Insert(_event);
+                SendEmail(true, _event);
+            }
+            catch
+            {
+                TempData["EmailError"] = "Fournissez une adresse email valide";
+                return RedirectToAction("Index");
+            }
 
-            return RedirectToAction("Index", eventHash);
+            return RedirectToAction("Index", "Event", new { eventHash = eventHash });
         }
 
         private string HashGenerator()
@@ -51,12 +65,14 @@ namespace WebApplication.Controllers
                 .ToList().ForEach(e => builder.Append(e));
             return builder.ToString();
         }
-
-        public void SendEmail(Event _event)
+        public void SendEmail(bool isCreator, Event _event)
         {
+            var thankMessage = isCreator ? "Merci d'avoir utilisé KiPrendKoi pour planifier " : "Vous avez été invité à participer à ";
+            var url = "https://kiprendkoi.azurewebsites.net/event/" + _event.EventHash;
+
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<h1>Merci d'avoir utilisé KiPrendKoi pour planifier " + _event.Name +"! </h1>" +
-                "<a href=" + "https://www.google.fr/" + ">Pour accéder à l'évènement, veuillez cliquer sur ce lien <a/>";
+            bodyBuilder.HtmlBody = "<h1>" + thankMessage + _event.Name + "! </h1>" +
+                "<a href=" + url + ">Pour accéder à l'évènement, veuillez cliquer sur ce lien <a/>";
             bodyBuilder.TextBody = "Merci d'avoir utilisé KiPrendKoi pour planifier vos évènements!";
 
             MimeMessage message = new MimeMessage();
