@@ -52,6 +52,11 @@ function editEvent(model) {
     model.description = eventDescription;
     model.location = eventLocation;
 
+    if (eventName == "") {
+        alert("Le champ Nom ne doit pas être vide !");
+        return;
+    }
+
     const options = {
         method: "PATCH",
         body: JSON.stringify(model),
@@ -59,8 +64,6 @@ function editEvent(model) {
             'Content-Type': 'application/json'
         }
     }
-
-    console.log(JSON.stringify(model));
 
     fetch(`/api/EventAPI/${model.id}`, options)
         .then(() => {

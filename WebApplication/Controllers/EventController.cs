@@ -21,8 +21,20 @@ namespace WebApplication.Controllers
 
         public async Task<IActionResult> Index(string eventHash)
         {
-            var model = _eventRepository.GetEventByHash(eventHash);
-            return View(model);
+            try
+            {
+                var model = _eventRepository.GetEventByHash(eventHash);
+                return View(model);
+            }
+            catch
+            {
+                return RedirectToAction("NotFound");
+            }
+        }
+
+        public IActionResult NotFound()
+        {
+            return View();
         }
     }
 }
