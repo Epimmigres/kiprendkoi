@@ -12,6 +12,20 @@
             alert("Lien copié !" + res);
         }
     </script>
+    <div class="header-container">
+        <h3 id="eventName">@Model.Name</h3>
+        <button type="button" class="btn btn-primary" onclick="showEventModal(@Model.Id)">Editer l'evenement</button>
+
+    </div>
+    <p id="eventDate">
+        📅: <span>@Model.Date</span>
+    </p>
+    <p id="eventLocation">
+        📍: <span>@Model.Location</span>
+    </p>
+    <p id="eventDescription">
+        📃: <span>@Model.Description</span>
+    </p>
 
     <div id="add-container">
         <div style="display: flex; justify-content: space-between; padding-bottom: 20px;">
@@ -37,8 +51,8 @@
                 <div class="alert alert-primary category-container">
                     <h3>@category.name</h3>
                     <div>
-                        <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                        <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Delete</button>
+                        <button type="button" class="btn btn-light" onclick="editCategory(this)">Editer</button>
+                        <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Supprimer</button>
                         <button type="button" class="btn btn-light" onclick='saveCategory(this, JSON.stringify({ ...@categoryObject, "eventId": @Model.Id}))' style="display: none">Sauvegarder</button>
                         <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                     </div>
@@ -60,10 +74,9 @@
                                 </div>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Edit</button>
-                                <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Delete</button>
+                                <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Editer</button>
+                                <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Supprimer</button>
                             </div>
-
                         </div>
                     }
                     <button type="button" class="btn btn-primary" onclick="appendNewItem(this, @category.Id)">+</button>

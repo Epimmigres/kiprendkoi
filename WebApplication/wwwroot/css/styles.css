@@ -1,8 +1,16 @@
 ﻿    .main-container {
         padding: 20px;
     }
-    .categories-container {
-        
+
+.modal {
+    display: block !important;
+    background: #555555aa;
+}
+
+    .header-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 
     .category-container {

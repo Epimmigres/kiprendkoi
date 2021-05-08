@@ -22,7 +22,7 @@ namespace WebApplication.DataAccess
             var eventObject = _context.Events.Where(elt => elt.EventHash == hash).First();
             var categories = _context.Categories.Where(category => category.EventId == eventObject.Id).ToList();
 
-            var response = new EventResponseModel(eventObject.Id, eventObject.EventHash);
+            var response = new EventResponseModel(eventObject.Id, eventObject.EventHash, eventObject.Name, eventObject.Location, eventObject.Description, eventObject.Date);
 
             foreach (var category in categories)
             {

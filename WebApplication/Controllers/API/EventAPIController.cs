@@ -8,6 +8,8 @@ using WebApplication.Dbo;
 
 namespace WebApplication.Controllers.API
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EventAPIController : Controller
     {
         private readonly IEventRepository _eventRepository;

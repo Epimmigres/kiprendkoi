@@ -1,8 +1,81 @@
-﻿    function appendNewCategory(eventId) {
+﻿function showEventModal(modelId) {
+    const eventName = document.querySelector("#eventName").innerHTML
+    // const eventDate = document.querySelector("#eventDate").children[0].innerHTML
+    const eventLocation = document.querySelector("#eventLocation").children[0].innerHTML
+    const eventDescription = document.querySelector("#eventDescription").children[0].innerHTML
+
+    // const eventDate = '2000-02-23T12:34'
+
+    document.body.innerHTML += `
+        <div class="modal fade show" id="modalEvent">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modifier l'evenement</h5>
+                        <button type="button" class="btn-close" onclick='removeModal()'></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Nom</label>
+                        <input id="eventNameInput" type="text" class="form-control" placeholder="Nom de l'evenement" value="${eventName}"/>
+                        <label>Date</label>
+                        <input id="eventDateInput" type="datetime-local" class="form-control" placeholder="Date de l'evenement" value=${eventDate} />
+                        <label>Localisation</label>
+                        <input id="eventLocalisationInput" type="text" class="form-control" placeholder="Localisation de l'evenement" value="${eventLocation}"/>
+                        <label>Description</label>
+                        <textarea id="eventDescriptionInput" rows="3" class="form-control" placeholder="Description de l'evenement">${eventDescription}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick='removeModal()'>Fermer</button>
+                        <button type="button" class="btn btn-primary" onclick='editEvent(${modelId})'>Sauvegarder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+`
+    }
+
+// <input id="eventDateInput" type="datetime-local" class="form-control" placeholder="Date de l'evenement" value=${eventDate} />
+
+function editEvent(modelId) {
+    const eventName = document.querySelector("#eventNameInput").value
+    const eventLocation = document.querySelector("#eventLocalisationInput").value
+    const eventDescription = document.querySelector("#eventDescription").value
+
+    const eventObject = {
+        name: eventName,
+        description: eventDescription,
+        location: eventLocation,
+        id: modelId
+    }
+
+    const options = {
+        method: "PATCH",
+        body: JSON.stringify(eventObject),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    fetch(`/api/EventAPI/${modelId}`, options)
+        .then(() => {
+            removeModal();
+            document.querySelector("#eventName").children[0].innerHTML = eventName;
+            document.querySelector("#eventLocation").children[0].innerHTML = eventLocation;
+            document.querySelector("#eventDescription").children[0].innerHTML = eventDescription;
+        })
+}
+
+function removeModal() {
+    document.querySelector("#modalEvent").remove();
+}
+
+    function appendNewCategory(eventId) {
         // TODO: Save button ?
         const name = document.getElementById("categoryInput").value;
-        if (name.length == 0)
+        if (name.length == 0) {
+            alert('Veuillez renseigner un nom pour votre categorie')
             return;
+        }
         const category = { name: name, eventId: eventId };
         const options = {
             method: "POST",
@@ -74,6 +147,12 @@
     }
 
     function saveCategory(buttonNode, category) {
+        const inputValue = buttonNode.parentNode.parentNode.children[0].value;
+        if (inputValue.length === 0) {
+            alert('Veuillez renseigner un nom pour votre categorie')
+            return ;
+        }
+
         const buttonList = buttonNode.parentNode.children;
 
         buttonList[0].style = "display: inline";
@@ -83,7 +162,6 @@
 
         const categoryObject = (typeof category == 'string') ? JSON.parse(category) : category;
 
-        const inputValue = buttonNode.parentNode.parentNode.children[0].value;
         categoryObject.name = inputValue;
         const options = {
             method: 'PATCH',
@@ -139,6 +217,11 @@
         const quiInputValue = buttonNode.parentNode.parentNode.children[0].children[0].value;
         const quoiInputValue = buttonNode.parentNode.parentNode.children[0].children[1].value;
         const quantityInputValue = buttonNode.parentNode.parentNode.children[0].children[2].value;
+
+        if (quiInputValue.length === 0 || quoiInputValue.length === 0 || quantityInputValue.length === 0) {
+            alert('Veuillez renseigner les champs manquants');
+            return;
+        }
 
         const itemObject = (typeof item == 'string') ? JSON.parse(item) : item;
 
@@ -218,6 +301,11 @@
         const quiInputValue = buttonNode.parentNode.parentNode.children[0].children[0].value;
         const quoiInputValue = buttonNode.parentNode.parentNode.children[0].children[1].value;
         const quantityInputValue = buttonNode.parentNode.parentNode.children[0].children[2].value;
+
+        if (quiInputValue.length === 0 || quoiInputValue.length === 0 || quantityInputValue.length === 0) {
+            alert('Veuillez renseigner les champs manquants');
+            return;
+        }
 
         const itemObject = { "who": quiInputValue, "what": quoiInputValue, "quantity": quantityInputValue, "categoryId": categoryId };
         const options = {

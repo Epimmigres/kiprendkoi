@@ -17,9 +17,13 @@ namespace WebApplication.Models
         public string eventHash { get; set; }
         public List<CategoryResponseModel> categories { get; set; }
 
-        public EventResponseModel(long Id, string eventHash)
+        public EventResponseModel(long Id, string eventHash, string name, string location, string description, DateTime? date)
         {
             this.Id = Id;
+            this.Name = name;
+            this.Description = description;
+            this.Date = date;
+            this.Location = location;
             this.eventHash = eventHash;
             this.categories = new List<CategoryResponseModel>();
         }
