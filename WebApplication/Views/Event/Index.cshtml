@@ -1,6 +1,7 @@
 ﻿@using WebApplication.Models
 @model WebApplication.Models.EventResponseModel
 @{
+    var modelObject = Json.Serialize(@Model);
 }
 
 
@@ -14,7 +15,10 @@
     </script>
     <div class="header-container">
         <h3 id="eventName">@Model.Name</h3>
-        <button type="button" class="btn btn-primary" onclick="showEventModal(@Model.Id)">Editer l'evenement</button>
+        <div>
+            <button type="button" class="btn btn-primary" onclick='showEventModal(JSON.stringify(@modelObject))'>Éditer l'evenement</button>
+            <button class="btn btn-success" onclick="copyToClipboard('@Model.eventHash')">Copier le lien</button>
+        </div>
 
     </div>
     <p id="eventDate">
@@ -30,13 +34,11 @@
     <div id="add-container">
         <div style="display: flex; justify-content: space-between; padding-bottom: 20px;">
             Ajouter une catégorie
-
-            <button class="btn btn-success" onclick="copyToClipboard('@Model.eventHash')">Copier le lien</button>
         </div>
 
 
         <div class="alert alert-primary category-container">
-            <input id="categoryInput" type="text" class="form-control" placeholder="Nom de la categorie" />
+            <input id="categoryInput" type="text" class="form-control" placeholder="Nom de la catégorie" />
             <div>
                 <button type="button" class="btn btn-light" onclick="appendNewCategory(@Model.Id)">Ajouter</button>
             </div>

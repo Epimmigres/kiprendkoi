@@ -32,8 +32,22 @@ namespace WebApplication.Controllers
         {
             var eventHash = HashGenerator();
             _event.EventHash = eventHash;
-            await _eventRepository.Insert(_event);
-            SendEmail(true, _event);
+            if (_event.Email == null || _event.Name == null)
+            {
+                if (_event.Email == null) TempData["EmailError"] = "Ce champ est obligatoire";
+                if (_event.Name == null) TempData["NameError"] = "Ce champ est obligatoire";
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                await _eventRepository.Insert(_event);
+                SendEmail(true, _event);
+            }
+            catch
+            {
+                TempData["EmailError"] = "Fournissez une adresse email valide";
+                return RedirectToAction("Index");
+            }
 
             return RedirectToAction("Index", "Event", new { eventHash = eventHash });
         }

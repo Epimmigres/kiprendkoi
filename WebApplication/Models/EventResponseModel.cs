@@ -11,16 +11,19 @@ namespace WebApplication.Models
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public string Description { get; set; }
         public DateTime? Date { get; set; }
         public string Location { get; set; }
         public string eventHash { get; set; }
+        [JsonIgnore]
         public List<CategoryResponseModel> categories { get; set; }
 
-        public EventResponseModel(long Id, string eventHash, string name, string location, string description, DateTime? date)
+        public EventResponseModel(long Id, string eventHash, string name, string email, string location, string description, DateTime? date)
         {
             this.Id = Id;
             this.Name = name;
+            this.Email = email;
             this.Description = description;
             this.Date = date;
             this.Location = location;

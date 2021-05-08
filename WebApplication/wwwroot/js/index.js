@@ -1,4 +1,11 @@
-﻿function showEventModal(modelId) {
+﻿function createOnSubmit() {
+    const eventObject = document.querySelector("#createForm").elements;
+    console.log(eventObject);
+    // event.preventDefault();
+    return false;
+}
+
+function showEventModal(model) {
     const eventName = document.querySelector("#eventName").innerHTML
     // const eventDate = document.querySelector("#eventDate").children[0].innerHTML
     const eventLocation = document.querySelector("#eventLocation").children[0].innerHTML
@@ -26,7 +33,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick='removeModal()'>Fermer</button>
-                        <button type="button" class="btn btn-primary" onclick='editEvent(${modelId})'>Sauvegarder</button>
+                        <button type="button" class="btn btn-primary" onclick='editEvent(${model})'>Sauvegarder</button>
                     </div>
                 </div>
             </div>
@@ -36,30 +43,29 @@
 
 // <input id="eventDateInput" type="datetime-local" class="form-control" placeholder="Date de l'evenement" value=${eventDate} />
 
-function editEvent(modelId) {
+function editEvent(model) {
     const eventName = document.querySelector("#eventNameInput").value
     const eventLocation = document.querySelector("#eventLocalisationInput").value
-    const eventDescription = document.querySelector("#eventDescription").value
+    const eventDescription = document.querySelector("#eventDescriptionInput").value
 
-    const eventObject = {
-        name: eventName,
-        description: eventDescription,
-        location: eventLocation,
-        id: modelId
-    }
+    model.name = eventName;
+    model.description = eventDescription;
+    model.location = eventLocation;
 
     const options = {
         method: "PATCH",
-        body: JSON.stringify(eventObject),
+        body: JSON.stringify(model),
         headers: {
             'Content-Type': 'application/json'
         }
     }
 
-    fetch(`/api/EventAPI/${modelId}`, options)
+    console.log(JSON.stringify(model));
+
+    fetch(`/api/EventAPI/${model.id}`, options)
         .then(() => {
             removeModal();
-            document.querySelector("#eventName").children[0].innerHTML = eventName;
+            document.querySelector("#eventName").innerHTML = eventName;
             document.querySelector("#eventLocation").children[0].innerHTML = eventLocation;
             document.querySelector("#eventDescription").children[0].innerHTML = eventDescription;
         })
@@ -95,8 +101,8 @@ function removeModal() {
                     <div class="alert alert-primary category-container">
                         <h3>${name}</h3>
                         <div>
-                            <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.Id})">Delete</button>
+                            <button type="button" class="btn btn-light" onclick="editCategory(this)">Éditer</button>
+                            <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.Id})">Supprimer</button>
                             <button type="button" class="btn btn-light" onclick='saveCategory(this, ${test})' style="display: none">Sauvegarder</button>
                             <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                         </div>
@@ -182,7 +188,6 @@ function removeModal() {
     }
 
     function deleteItem(buttonNode, itemId) {
-        // TODO: Catch Fetch Error
         fetch(`/api/ItemAPI/${itemId}`, {
             method: "DELETE"
         })
@@ -190,7 +195,6 @@ function removeModal() {
     }
 
     function editItem(buttonNode, item) {
-        // TODO: Take the id as a parameter and call the API
         const who = buttonNode.parentNode.parentNode.children[0].children[0].children[0].innerHTML;
         const what = buttonNode.parentNode.parentNode.children[0].children[1].children[0].innerHTML;
         const quantity = buttonNode.parentNode.parentNode.children[0].children[2].children[0].innerHTML;
@@ -255,8 +259,8 @@ function removeModal() {
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Delete</button>
+                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Éditer</button>
+                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Supprimer</button>
                         </div>
 
                     </div>
@@ -276,8 +280,6 @@ function removeModal() {
     }
 
     function appendNewItem(buttonNode, categoryId) {
-        // TODO: Remove button Node
-
         buttonNode.insertAdjacentHTML('beforebegin', `
             <div class="alert alert-light item-container">
                 <div style="display: flex">
@@ -294,10 +296,6 @@ function removeModal() {
     }
 
     function saveNewItem(buttonNode, categoryId) {
-        // TODO: Take the id as a parameter and call the API
-        // TODO: Show again the add item button
-        // TODO: Handle the number of item
-
         const quiInputValue = buttonNode.parentNode.parentNode.children[0].children[0].value;
         const quoiInputValue = buttonNode.parentNode.parentNode.children[0].children[1].value;
         const quantityInputValue = buttonNode.parentNode.parentNode.children[0].children[2].value;
@@ -333,8 +331,8 @@ function removeModal() {
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Delete</button>
+                            <button type="button" class="btn btn-light" onclick='editItem(this, ${JSON.stringify(res)})'>Éditer</button>
+                            <button type="button" class="btn btn-light" onclick="deleteItem(this, ${res.id})">Supprimer</button>
                         </div>
 
                     </div>
