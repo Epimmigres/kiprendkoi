@@ -32,3 +32,4 @@ To launch the project successfully with the right Azure SqlDatabase, please crea
 ## Website
 
 KiPrendKoi is currently hosted on an Azure webserver and available on the following link:
+https://kiprendkoi.azurewebsites.net/
