@@ -53,10 +53,12 @@ namespace WebApplication.Controllers
         }
         public void SendEmail(bool isCreator, Event _event)
         {
-            var str = isCreator ? "Merci d'avoir utilisé KiPrendKoi pour planifier" : "Vous avez été invité à participer à ";
+            var thankMessage = isCreator ? "Merci d'avoir utilisé KiPrendKoi pour planifier " : "Vous avez été invité à participer à ";
+            var url = "https://kiprendkoi.azurewebsites.net/event/" + _event.EventHash;
+
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<h1>Merci d'avoir utilisé KiPrendKoi pour planifier " + _event.Name + "! </h1>" +
-                "<a href=" + "https://www.google.fr/" + ">Pour accéder à l'évènement, veuillez cliquer sur ce lien <a/>";
+            bodyBuilder.HtmlBody = "<h1>" + thankMessage + _event.Name + "! </h1>" +
+                "<a href=" + url + ">Pour accéder à l'évènement, veuillez cliquer sur ce lien <a/>";
             bodyBuilder.TextBody = "Merci d'avoir utilisé KiPrendKoi pour planifier vos évènements!";
 
             MimeMessage message = new MimeMessage();
