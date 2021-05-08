@@ -105,7 +105,7 @@ function removeModal() {
                         <h3>${name}</h3>
                         <div>
                             <button type="button" class="btn btn-light" onclick="editCategory(this)">Éditer</button>
-                            <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.Id})">Supprimer</button>
+                            <button type="button" class="btn btn-light" onclick="deleteCategory(this, ${res.id})">Supprimer</button>
                             <button type="button" class="btn btn-light" onclick='saveCategory(this, ${test})' style="display: none">Sauvegarder</button>
                             <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                         </div>
