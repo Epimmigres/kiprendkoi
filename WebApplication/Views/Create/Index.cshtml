@@ -1,59 +1,61 @@
 ﻿@model WebApplication.Dbo.Event
 
 @{
-    ViewData["Title"] = "Create your event";
+    ViewData["Title"] = "Créer un évènement 🎉";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h3 style="margin-left: 15px">@ViewData["Title"]</h3>
+<style>
+    .form-group {
+        margin: 12px 0px;
+    }
+</style>
+
+<div class="form-horizontal" style="margin-left: 20px; width: 50vw; padding: 25px">
+    <h3 >@ViewData["Title"]</h3>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <label>E-mail</label>
+        <div>
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+    <div class="form-group"> 
+        <label>Nom</label>
+        <div>
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <label>Description</label>
+        <div>
             @Html.TextAreaFor(model => model.Description, new { @rows = 3, @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <label>Date</label>
+        <div>
             @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <label>Lieu</label>
+        <div>
             @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
+    <div class="form-group" style="display: flex; justify-content: flex-end">
+            <input type="submit" value="Valider" class="btn btn-primary btn-lg" />
     </div>
 </div>
 }

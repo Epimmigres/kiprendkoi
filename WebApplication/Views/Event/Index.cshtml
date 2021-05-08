@@ -3,10 +3,24 @@
 @{
 }
 
+
 <div class="main-container">
+    <script>
+        function copyToClipboard(hash) {
+            var eventURL = "https://kiprendkoi.azurewebsites.net/event/" + hash;
+            navigator.clipboard.writeText(eventURL);
+            alert("Lien copié !" + res);
+        }
+    </script>
 
     <div id="add-container">
-        Ajouter une categorie
+        <div style="display: flex; justify-content: space-between; padding-bottom: 20px;">
+            Ajouter une catégorie
+
+            <button class="btn btn-success" onclick="copyToClipboard('@Model.eventHash')">Copier le lien</button>
+        </div>
+
+
         <div class="alert alert-primary category-container">
             <input id="categoryInput" type="text" class="form-control" placeholder="Nom de la categorie" />
             <div>
@@ -19,44 +33,44 @@
         @foreach (var category in Model.categories)
         {
             var categoryObject = Json.Serialize(category);
-        <div>
-            <div class="alert alert-primary category-container">
-                <h3>@category.name</h3>
-                <div>
-                    <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
-                    <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Delete</button>
-                    <button type="button" class="btn btn-light" onclick='saveCategory(this, JSON.stringify({ ...@categoryObject, "eventId": @Model.Id}))' style="display: none">Sauvegarder</button>
-                    <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
-                </div>
-            </div>
-            <div class="items-container">
-                @foreach (var item in category.items)
-                {
-                    var itemObject = Json.Serialize(item);
-                    <div class="alert alert-light item-container">
-                        <div>
-                            <div>
-                                Qui: <span>@item.Who</span>
-                            </div>
-                            <div>
-                                Quoi: <span>@item.What</span>
-                            </div>
-                            <div>
-                                Quantité: <span>@item.Quantity</span>
-                            </div>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Edit</button>
-                            <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Delete</button>
-                        </div>
-
+            <div>
+                <div class="alert alert-primary category-container">
+                    <h3>@category.name</h3>
+                    <div>
+                        <button type="button" class="btn btn-light" onclick="editCategory(this)">Edit</button>
+                        <button type="button" class="btn btn-light" onclick="deleteCategory(this, @category.Id)">Delete</button>
+                        <button type="button" class="btn btn-light" onclick='saveCategory(this, JSON.stringify({ ...@categoryObject, "eventId": @Model.Id}))' style="display: none">Sauvegarder</button>
+                        <button type="button" class="btn btn-light" onclick="cancelEditCategory(this)" style="display: none">Annuler</button>
                     </div>
-                }
-                <button type="button" class="btn btn-primary" onclick="appendNewItem(this, @category.Id)">+</button>
-            </div>
- 
+                </div>
+                <div class="items-container">
+                    @foreach (var item in category.items)
+                    {
+                        var itemObject = Json.Serialize(item);
+                        <div class="alert alert-light item-container">
+                            <div>
+                                <div>
+                                    Qui: <span>@item.Who</span>
+                                </div>
+                                <div>
+                                    Quoi: <span>@item.What</span>
+                                </div>
+                                <div>
+                                    Quantité: <span>@item.Quantity</span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-light" onclick='editItem(this, JSON.stringify(@itemObject))'>Edit</button>
+                                <button type="button" class="btn btn-light" onclick="deleteItem(this, @item.Id)">Delete</button>
+                            </div>
 
-        </div>
+                        </div>
+                    }
+                    <button type="button" class="btn btn-primary" onclick="appendNewItem(this, @category.Id)">+</button>
+                </div>
+
+
+            </div>
 
         }
     </div>

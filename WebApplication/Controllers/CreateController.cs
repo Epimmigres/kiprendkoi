@@ -33,9 +33,9 @@ namespace WebApplication.Controllers
             var eventHash = HashGenerator();
             _event.EventHash = eventHash;
             await _eventRepository.Insert(_event);
-            SendEmail(_event);
+            SendEmail(true, _event);
 
-            return RedirectToAction("Index", "Event", new {eventHash = eventHash});
+            return RedirectToAction("Index", "Event", new { eventHash = eventHash });
         }
 
         private string HashGenerator()
@@ -51,11 +51,11 @@ namespace WebApplication.Controllers
                 .ToList().ForEach(e => builder.Append(e));
             return builder.ToString();
         }
-
-        public void SendEmail(Event _event)
+        public void SendEmail(bool isCreator, Event _event)
         {
+            var str = isCreator ? "Merci d'avoir utilisé KiPrendKoi pour planifier" : "Vous avez été invité à participer à ";
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<h1>Merci d'avoir utilisé KiPrendKoi pour planifier " + _event.Name +"! </h1>" +
+            bodyBuilder.HtmlBody = "<h1>Merci d'avoir utilisé KiPrendKoi pour planifier " + _event.Name + "! </h1>" +
                 "<a href=" + "https://www.google.fr/" + ">Pour accéder à l'évènement, veuillez cliquer sur ce lien <a/>";
             bodyBuilder.TextBody = "Merci d'avoir utilisé KiPrendKoi pour planifier vos évènements!";
 
